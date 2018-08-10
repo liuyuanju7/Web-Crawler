@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuyj.music.mapper.SongMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.liuyj.music.entity.Song">
+		<id column="id" property="id" />
+		<result column="songId" property="songId" />
+		<result column="name" property="name" />
+		<result column="singer" property="singer" />
+		<result column="singerIds" property="singerIds" />
+		<result column="album" property="album" />
+		<result column="outChain" property="outChain" />
+		<result column="commentCount" property="commentCount" />
+		<result column="imgUrl" property="imgUrl" />
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,95 @@
+server:
+  tomcat:
+      uri-encoding: UTF-8
+      max-threads: 1000
+      min-spare-threads: 30
+  port: 8090
+
+#mysql
+spring:
+  datasource:
+    initialize: false
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    druid:
+      url: jdbc:mysql://192.168.148.55:3306/wangyiyun?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+      username: mysql
+      password: mysql
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+          enabled: true
+          url-pattern: /druid/*
+          login-username: admin
+          login-password: admin
+      filter:
+          stat:
+              log-slow-sql: true
+              slow-sql-millis: 1000
+              merge-sql: true
+          wall:
+              config:
+                  multi-statement-allow: true
+    #jackson 时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  http:
+     multipart:
+       max-file-size: 100MB
+       max-request-size: 100MB
+       enabled: true
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath:/mapping/**/*Mapper.xml
+  typeAliasesPackage: com.liuyj.music
+  global-config:
+        #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+        id-type: 0
+        #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+        field-strategy: 2
+        #驼峰下划线转换
+        db-column-underline: true
+        #刷新mapper 调试神器
+        refresh-mapper: true
+        #数据库大写下划线转换
+        #capital-mode: true
+        #序列接口实现类配置
+        #key-generator: cn.jeefast.xxx
+        #逻辑删除配置
+        logic-delete-value: 0
+        logic-not-delete-value: 1
+        #自定义填充策略接口实现
+        #meta-object-handler: cn.jeefast.xxx
+        #自定义SQL注入器
+        #sql-injector: cn.jeefast.xxx
+  configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+
+
+##http
+#最大连接数
+http:
+  maxTotal: 100
+#并发数
+  defaultMaxPerRoute: 20
+#创建连接的最长时间
+  connectTimeout: 1000
+#从连接池中获取到连接的最长时间
+  connectionRequestTimeout: 500
+#数据传输的最长时间
+  socketTimeout: 10000
+#提交请求前测试连接是否可用
+  staleConnectionCheckEnabled: true
