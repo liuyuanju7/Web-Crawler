@@ -6,11 +6,13 @@
 	<resultMap id="BaseResultMap" type="com.liuyj.music.entity.Comment">
 		<id column="id" property="id" />
 		<result column="commentId" property="commentId" />
+		<result column="songId" property="songId" />
 		<result column="userId" property="userId" />
 		<result column="avatarUrl" property="avatarUrl" />
 		<result column="nickname" property="nickname" />
 		<result column="content" property="content" />
 		<result column="time" property="time" />
+		<result column="likeCount" property="likeCount" />
 	</resultMap>
 
 </mapper>

@@ -3,13 +3,13 @@ package com.liuyj.music.entity;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 /**
  * <p>
@@ -17,56 +17,42 @@ import java.time.Instant;
  * </p>
  *
  * @author liuyuanju1
- * @since 2018-08-10
+ * @since 2018-08-14
  */
 @Data
 @ToString
 @Accessors(chain = true)
-public class Comment extends Model<Comment> {
+@TableName("playlist_song")
+public class PlaylistSong extends Model<PlaylistSong> {
 
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
     /**
-     * 评论id
+     * 歌单id
      */
-	@TableField("commentId")
-	private Integer commentId;
-	/**
-	 * 歌曲id
-	 */
+	@TableField("playlistId")
+	private String playlistId;
+    /**
+     * 歌曲id
+     */
 	@TableField("songId")
 	private String songId;
     /**
-     * 用户id
+     * 歌名
      */
-	@TableField("userId")
-	private Integer userId;
+    @TableField("songName")
+	private String songName;
     /**
-     * 用户头像url
+     * 歌手
      */
-	@TableField("avatarUrl")
-	private String avatarUrl;
+	private String singer;
     /**
-     * 用户昵称
+     * 专辑
      */
-	@TableField("nickname")
-	private String nickname;
-    /**
-     * 评论内容
-     */
-	private String content;
-    /**
-     * 评论时间
-     */
-	private Instant time;
+	private String album;
 
-	/**
-	 * 点赞数
-	 */
-	@TableField("likeCount")
-	private Integer likeCount;
 
 	@Override
 	protected Serializable pkVal() {

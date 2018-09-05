@@ -11,6 +11,7 @@
 		<result column="creater" property="creater" />
 		<result column="imgUrl" property="imgUrl" />
 		<result column="count" property="count" />
+		<result column="des" property="des" />
 	</resultMap>
 
 </mapper>

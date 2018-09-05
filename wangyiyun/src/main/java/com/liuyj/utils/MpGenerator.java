@@ -76,7 +76,7 @@ public class MpGenerator {
 
         //配置哪些表自动生成
 
-        strategy.setInclude(new String[]{"playlist"}); // 需要生成的表
+        strategy.setInclude(new String[]{"playlist_song"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.tout.demo.TestEntity");

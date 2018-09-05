@@ -1,7 +1,9 @@
 package com.liuyj.music.service;
 
-import com.liuyj.music.entity.Song;
 import com.baomidou.mybatisplus.service.IService;
+import com.liuyj.music.entity.Song;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +14,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2018-08-09
  */
 public interface ISongService extends IService<Song> {
-	
+
+    public List<Song> getRankSong();
 }

@@ -55,6 +55,11 @@ public class Playlist extends Model<Playlist> {
      */
     private String count;
 
+    /**
+     * 歌单描述
+     */
+    private String des;
+
     @Override
     protected Serializable pkVal() {
         return this.id;

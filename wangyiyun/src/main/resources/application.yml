@@ -12,9 +12,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
     druid:
-      url: jdbc:mysql://192.168.148.55:3306/wangyiyun?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-      username: mysql
-      password: mysql
+      url: jdbc:mysql://localhost:3306/wangyiyun?zeroDateTimeBehavior=convertToNull&useSSL=true
+      username: root
+      password: 123456
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -73,7 +73,7 @@ mybatis-plus:
         #自定义填充策略接口实现
         #meta-object-handler: cn.jeefast.xxx
         #自定义SQL注入器
-        #sql-injector: cn.jeefast.xxx
+        #wangyiyun.sql-injector: cn.jeefast.xxx
   configuration:
       map-underscore-to-camel-case: true
       cache-enabled: false

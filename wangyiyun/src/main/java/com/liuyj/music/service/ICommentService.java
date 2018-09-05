@@ -14,6 +14,9 @@ import java.util.List;
  * @since 2018-08-10
  */
 public interface ICommentService extends IService<Comment> {
-
-    List<Comment> getCommentsBySongId(String songId);
+    /**
+     * 获取 根据评论点赞数 排序的前20歌曲的songId
+     * @return
+     */
+    public List<String> getSongIdsByCounts();
 }

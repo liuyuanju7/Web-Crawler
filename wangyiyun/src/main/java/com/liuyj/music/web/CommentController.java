@@ -1,6 +1,7 @@
 package com.liuyj.music.web;
 
 
+import com.liuyj.jsoup.Music163;
 import com.liuyj.music.entity.Comment;
 import com.liuyj.music.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -27,8 +29,9 @@ public class CommentController {
     private ICommentService commentService;
 
 	@GetMapping("/{songId}")
-    public List<Comment> getCommentBySongId(@PathVariable String songId){
-        return commentService.getCommentsBySongId(songId);
+    public List<Comment> getCommentBySongId(@PathVariable String songId) throws ParseException {
+        return Music163.getCommentsBySongId(songId);
+
     }
 
 }

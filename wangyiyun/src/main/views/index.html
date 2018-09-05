@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Music</title>
+    <!-- element 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+</head>
+<style>
+    #app {
+        width: 70%;
+        margin: auto;
+    }
+    .title{
+        font-size: larger;
+    }
+    .time {
+        font-size: 13px;
+        color: #999;
+    }
+
+    .bottom {
+        margin-top: 13px;
+        line-height: 12px;
+    }
+
+    .button {
+        padding: 0;
+        /*float: right;*/
+    }
+
+    .image {
+        width: 140px;
+        height: 140px;
+        display: block;
+        float:left;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both
+    }
+</style>
+<body>
+<div id="app">
+    <el-container >
+        <el-header id="header">
+            <el-menu  :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
+                      background-color="#545c64" text-color="#ffffff" active-text-color="#F56C6C">
+                <el-menu-item index="1" class="title" style="color: #F56C6C">网易云Music<i class="el-icon-service" style="color: #F56C6C"></i></el-menu-item>
+                <el-menu-item v-on:click="goDiscover" index="2" style="margin-left: 500px;">发现</el-menu-item>
+                <el-menu-item index="3">排行榜</el-menu-item>
+                <el-menu-item index="4">故事会</el-menu-item>
+            </el-menu>
+        </el-header>
+        <div id="playlists">
+        <el-main>
+            <el-row>
+                <el-col :span="8" v-for="(playlist, index) in playlists" :key="playlist.id" >
+                    <el-card :body-style="{ padding: '15px', width: '320px' }" >
+                        <img :src="playlist.imgUrl" class="image">
+                        <div style="margin-left: 155px;">
+                            <span style="padding: 10px">{{ playlist.name }}</span>
+                            <span></span>
+                            <div class="bottom clearfix" >
+                                <div style="margin-top: 40px">
+                                <p class="time"><i class="el-icon-edit"></i> &nbsp;{{ playlist.creater}}</p>
+                                <time class="time"><i class="el-icon-service"></i>{{ playlist.count }}</time>
+                                &nbsp;
+                                <el-button type="text" class="button">详情</el-button>
+                                </div>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+
+        </el-main>
+        <el-footer>
+        <div id="paging" class="block" style="text-align: center">
+            <el-pagination :current-page="currentPage" @current-change="getPlaylists"
+                    layout="prev, pager, next"
+                    :total="total">
+            </el-pagination>
+        </div>
+        </el-footer>
+        </div>
+    </el-container>
+
+</div>
+</body>
+<!-- vue 开发环境版本，包含了用帮助的命令行警告  import Vue before Element-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- element 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--基于promise用于浏览器和node.js的http客户端-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var header = new Vue({
+        el: '#header',
+        data: {
+            activeIndex : '2',
+        },
+        methods: {
+            goDiscover: function () {
+                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/index.html";
+            },
+        }
+    });
+    var playlist = new Vue({
+        el: '#playlists',
+        data: {
+            playlists: [],
+            currentPage: 1,
+            pageSize: 9,
+            total: null
+        },
+        created: function () {
+            this.getPlaylists(1)
+        },
+        methods: {
+            getPlaylists: function(current){
+                console.log(current);
+                axios.get("http://localhost:8090/music/playlist?type=民谣&current="+current+"&pageSize=9")
+                    .then(function (response) {
+                        console.log(response.data);
+                        playlist.playlists = response.data.records;
+                        playlist.total = response.data.total;
+                    })
+            },
+        }
+    });
+
+//    var paging = new Vue({
+//        el: "#paging",
+//        data: {
+//            currentPage: 1,
+//            pageSize: 9,
+//            total: null
+//        },
+//        methods: {
+//            getPlaylists: function(current){
+//                console.log(current);
+//                axios.get("http://localhost:8090/music/playlist?type=民谣&current="+current+"&pageSize=9")
+//                     .then(function (response) {
+//                    console.log(response.data);
+//                    playlist.playlists = response.data;
+//                })
+//            },
+//        }
+//    })
+
+</script>
+</html>

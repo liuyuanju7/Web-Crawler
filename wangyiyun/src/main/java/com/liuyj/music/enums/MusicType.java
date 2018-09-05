@@ -7,7 +7,13 @@ package com.liuyj.music.enums;
  */
 public enum MusicType {
 
-    Minyao("民谣");
+ //   Minyao("民谣");
+    Huayu("华语");
+//    Liuxing("流行"),
+//    Yaogun("摇滚"),
+//    Dianzi("电子"),
+//    Shuochang("说唱");
+
 
     private String type;
 
