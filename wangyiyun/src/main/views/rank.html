@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Music</title>
+    <!-- element 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+</head>
+<style>
+    #app {
+        width: 70%;
+        margin: auto;
+    }
+
+    .songname {
+        text-align: center;
+    }
+
+    .image {
+        width: 50px;
+        height: 50px;
+    }
+
+</style>
+<body>
+<div id="app">
+    <el-container >
+        <el-header id="header">
+            <el-menu  :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
+                      background-color="#545c64" text-color="#ffffff" active-text-color="#F56C6C">
+                <el-menu-item index="1" class="title" style="color: #F56C6C">网易云Music<i class="el-icon-service" style="color: #F56C6C"></i></el-menu-item>
+                <el-menu-item v-on:click="goDiscover" index="2" style="margin-left: 500px;">发现</el-menu-item>
+                <el-menu-item v-on:click="goRank" index="3">排行榜</el-menu-item>
+                <el-menu-item v-on:click="goStory" index="4">故事会</el-menu-item>
+            </el-menu>
+        </el-header>
+        <div id="rank">
+            <el-main>
+                <el-table :data="rankSongs" stripe style="width: 100%">
+                    <el-table-column width="80" type="index">
+
+                    </el-table-column>
+                    <el-table-column label="标题" width="70">
+                        <template slot-scope="scope">
+                            <img v-bind:src="scope.row.imgUrl" class="image">
+                        </template>
+                    </el-table-column>
+                    <el-table-column width="400">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 20px;">{{ scope.row.name }}</span>
+                            <i class="el-icon-caret-right"></i>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="singer" label="歌手" width="180">
+                    </el-table-column>
+                    <el-table-column prop="album" label="专辑">
+                    </el-table-column>
+                    <el-table-column  label="---">
+                        <template slot-scope="scope">
+                            <i class="el-icon-plus"></i>&nbsp;&nbsp;
+                            <i class="el-icon-share"></i>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
+            </el-main>
+            <el-footer>
+
+            </el-footer>
+        </div>
+    </el-container>
+
+</div>
+</body>
+<!-- vue 开发环境版本，包含了用帮助的命令行警告  import Vue before Element-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- element 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--基于promise用于浏览器和node.js的http客户端-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var header = new Vue({
+        el: '#header',
+        data: {
+            activeIndex : '3',
+        },
+        methods: {
+            goDiscover: function () {
+                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/index.html";
+            },
+            goRank: function () {
+                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/rank.html";
+            },
+            goStory: function () {
+                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/story.html";
+            }
+        }
+    });
+
+    var rank = new Vue({
+        el: '#rank',
+        data:{
+            rankSongs:[],
+
+        },
+        created: function () {
+            axios.get("http://localhost:8090/music/song/rank").then(function (response) {
+                console.log(response.data);
+                rank.rankSongs = response.data;
+            })
+        }
+    })
+</script>
+</html>

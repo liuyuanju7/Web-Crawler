@@ -15,8 +15,7 @@ import java.io.*;
 public class JsoupHtml {
     public static void main(String[] args) throws IOException{
         //jl=530 表示工作地点为北京  p=1 表示第一页 可以动态改变 页数
-        String url = "https://sou.zhaopin.com/jobs/searchresult.ashx?" +
-                "jl=530&kw=java&sm=0&sg=96dd6baa3514407c9639329afaac53dc&p=1";
+        String url = "https://sou.zhaopin.com/?pageSize=60&jl=530&kw=java&kt=3";
         //输出 html 文件
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("E:\\workinfo.html")));
         writer.write("");
@@ -36,7 +35,8 @@ public class JsoupHtml {
 
         //抓取网页的工作信息
         Document document = Jsoup.connect(url).get();
-        Element content = document.getElementById("newlist_list_content_table");
+       // Element content = document.getElementById("newlist_list_content_table");
+        Element content = document.getElementById("list-content-pile");
         Elements zwmc = content.getElementsByClass("zwmc");
         Elements gsmc = content.getElementsByClass("gsmc");
         Elements zwyx = content.getElementsByClass("zwyx");

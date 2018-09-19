@@ -63,9 +63,9 @@ public class MpGenerator {
         });
         //配置数据源信息
         dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("mysql");
-        dsc.setPassword("mysql");
-        dsc.setUrl("jdbc:mysql://192.168.148.55:3306/wangyiyun?characterEncoding=utf8");
+        dsc.setUsername("root");
+        dsc.setPassword("123456");
+        dsc.setUrl("jdbc:mysql://localhost:3306/wangyiyun?zeroDateTimeBehavior=convertToNull&useSSL=true");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -76,7 +76,7 @@ public class MpGenerator {
 
         //配置哪些表自动生成
 
-        strategy.setInclude(new String[]{"playlist_song"}); // 需要生成的表
+        strategy.setInclude(new String[]{"keyword"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.tout.demo.TestEntity");

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Music</title>
+    <!-- element 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+</head>
+<style>
+    #app {
+        width: 70%;
+        margin: auto;
+    }
+    .words {
+        margin: 10px;
+    }
+    .song-name {
+        color: #F56C6C;
+        font-size: large;
+    }
+    .user-img {
+        width: 50px;
+        height: 50px;
+    }
+    .box-card {
+        margin: 5px;
+    }
+    .nickname {
+        color: #409EFF;
+        height: 50px;
+    }
+</style>
+<body>
+<div id="app">
+    <el-container >
+        <el-header id="header">
+            <el-menu  :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
+                      background-color="#545c64" text-color="#ffffff" active-text-color="#F56C6C">
+                <el-menu-item index="1" class="title" style="color: #F56C6C">网易云Music<i class="el-icon-service" style="color: #F56C6C"></i></el-menu-item>
+                <el-menu-item v-on:click="goDiscover" index="2" style="margin-left: 500px;">发现</el-menu-item>
+                <el-menu-item v-on:click="goRank" index="3">排行榜</el-menu-item>
+                <el-menu-item v-on:click="goStory" index="4">故事会</el-menu-item>
+            </el-menu>
+        </el-header>
+        <div id="story">
+            <el-main>
+                <el-card class="box-card" v-for="item in storyList" :key="item.song.songId">
+                    <div slot="header" class="clearfix">
+                        <span class="song-name">《{{item.song.name}}》</span>
+                        <el-tag v-for="word in item.keywords" class="words">{{ word }}</el-tag>
+                        <div>
+                            <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=500 height=70-->
+                                    <!--:src="'//music.163.com/outchain/player?type=2&id='+item.song.songId +'&auto=0&height=66'"></iframe>-->
+                            <embed :src="'//music.163.com/outchain/player?type=2&id='+item.song.songId +'&auto=0&height=66'" width="500" height="80"  allowNetworking="all"></embed>
+                        </div>
+                    </div>
+                    <div v-for="comment in item.comments" :key="comment.id" class="text item">
+                        <el-card class="box-card">
+                            <div style="float: left">
+                                <img :src="comment.avatarUrl" class="user-img">&nbsp;&nbsp;
+                            </div>
+                            <div>
+                                <span class="nickname" >{{ comment.nickname }}: </span>
+                                {{comment.content }}
+                            </div>
+                            <div style="font-size: 13px;float: right">
+                                <i class="el-icon-d-caret" style="color: #409EFF"></i>({{ comment.likeCount }})
+                            </div>
+                        </el-card>
+                    </div>
+                </el-card>
+
+            </el-main>
+            <el-footer>
+
+            </el-footer>
+        </div>
+    </el-container>
+
+</div>
+</body>
+<!-- vue 开发环境版本，包含了用帮助的命令行警告  import Vue before Element-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- element 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--基于promise用于浏览器和node.js的http客户端-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var header = new Vue({
+        el: '#header',
+        data: {
+            activeIndex : '4',
+            baseUrl: "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views"
+        },
+        methods: {
+            goDiscover: function () {
+                window.location.href = this.baseUrl + "/index.html";
+            },
+            goRank: function () {
+                window.location.href = this.baseUrl + "rank.html";
+            },
+            goStory: function () {
+                window.location.href = this.baseUrl + "/story.html";
+            }
+        }
+    });
+
+    var rank = new Vue({
+        el: '#story',
+        data:{
+            storyList:[],
+
+        },
+        created: function () {
+//            axios.get("http://localhost:8090/music/story/rank").then(function (response) {
+//                console.log(response.data);
+//                rank.storyList = response.data;
+//            })
+            axios.get("http://localhost:8090/music/story/rank").then((response) => {
+                this.storyList = response.data;
+            });
+        }
+    })
+</script>
+</html>

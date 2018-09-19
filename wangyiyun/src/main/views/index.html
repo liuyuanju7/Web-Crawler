@@ -55,8 +55,8 @@
                       background-color="#545c64" text-color="#ffffff" active-text-color="#F56C6C">
                 <el-menu-item index="1" class="title" style="color: #F56C6C">网易云Music<i class="el-icon-service" style="color: #F56C6C"></i></el-menu-item>
                 <el-menu-item v-on:click="goDiscover" index="2" style="margin-left: 500px;">发现</el-menu-item>
-                <el-menu-item index="3">排行榜</el-menu-item>
-                <el-menu-item index="4">故事会</el-menu-item>
+                <el-menu-item v-on:click="goRank" index="3">排行榜</el-menu-item>
+                <el-menu-item v-on:click="goStory" index="4">故事会</el-menu-item>
             </el-menu>
         </el-header>
         <div id="playlists">
@@ -111,6 +111,12 @@
             goDiscover: function () {
                 window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/index.html";
             },
+            goRank: function () {
+                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/rank.html";
+            },
+            goStory: function () {
+                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/story.html";
+            }
         }
     });
     var playlist = new Vue({
