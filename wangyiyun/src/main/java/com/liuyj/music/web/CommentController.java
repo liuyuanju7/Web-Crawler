@@ -3,6 +3,8 @@ package com.liuyj.music.web;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.common.collect.Lists;
+import com.liuyj.core.result.Result;
+import com.liuyj.core.result.ResultGenerator;
 import com.liuyj.jsoup.Music163;
 import com.liuyj.music.entity.Comment;
 import com.liuyj.music.service.ICommentService;
@@ -43,7 +45,7 @@ public class CommentController {
 
     //初始化 排行前20歌曲的评论，
     @GetMapping("/rank")
-    public String initRankSongComment(){
+    public Result initRankSongComment(){
         List<String> songIds = commentService.getSongIdsByCounts();
         List<String> initSongId = Lists.newArrayList();
         songIds.forEach(id -> {
@@ -64,11 +66,11 @@ public class CommentController {
             });
             commentService.insertBatch(commentList);
         }
-        return "排行榜评论加载完成";
+        return ResultGenerator.successResult("排行榜评论加载完成");
     }
 
     @GetMapping("/keyword/{songId}")
-    public String segCommentToKeyword(@PathVariable String songId) throws Exception {
+    public Result segCommentToKeyword(@PathVariable String songId) throws Exception {
         List<Comment> comments = commentService.selectList(new EntityWrapper<Comment>().eq("songId",songId));
         StringBuilder builder = new StringBuilder();
         comments.forEach(comment -> {
@@ -84,7 +86,7 @@ public class CommentController {
         pw.close();
         WordSegmenter.seg(comment,keyword);
 
-        return "歌曲对应评论分词结束";
+        return ResultGenerator.successResult("歌曲对应评论分词结束");
     }
 
 }

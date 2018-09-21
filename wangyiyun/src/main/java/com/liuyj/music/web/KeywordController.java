@@ -4,6 +4,8 @@ package com.liuyj.music.web;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.liuyj.core.result.Result;
+import com.liuyj.core.result.ResultGenerator;
 import com.liuyj.music.entity.Comment;
 import com.liuyj.music.entity.Keyword;
 import com.liuyj.music.service.ICommentService;
@@ -42,13 +44,13 @@ public class KeywordController {
     private IKeywordService keywordService;
 
     @GetMapping("/init")
-    public String initSongCommentKeyword(){
+    public Result initSongCommentKeyword(){
         // key 歌曲id val：所有评论内容
         Map<String,StringBuilder> commentMap = Maps.newHashMap();
         List<Comment> comments = commentService.selectList(new EntityWrapper<Comment>());
         if(CollectionUtils.isEmpty(comments)){
             logger.info("未查询到歌曲评论");
-            return "未查询到歌曲评论";
+            return ResultGenerator.failResult("未查询到歌曲评论");
         }
         comments.stream().forEach(comment -> {
             String songId = comment.getSongId();
@@ -75,7 +77,7 @@ public class KeywordController {
         logger.info("所有歌曲的评论进行关键词分词结束，共处理{}首歌曲，共耗时{}s",keywordList.size(),(end-start)/1000);
         keywordService.insertBatch(keywordList);
 
-        return "歌曲对应评论分词结束";
+        return ResultGenerator.successResult("歌曲对应评论分词结束");
     }
 
     private String converSegWords(List<Word> words){

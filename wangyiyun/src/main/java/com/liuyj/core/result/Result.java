@@ -31,4 +31,9 @@ public class Result {
     public String toString(){
         return JSON.toJSONString(this);
     }
+
+    public Result setCode(ResultCode resultCode){
+        this.code = resultCode.code;
+        return this;
+    }
 }

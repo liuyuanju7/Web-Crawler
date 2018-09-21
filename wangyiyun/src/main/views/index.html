@@ -106,16 +106,17 @@
         el: '#header',
         data: {
             activeIndex : '2',
+            baseUrl: "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views"
         },
         methods: {
             goDiscover: function () {
-                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/index.html";
+                window.location.href = this.baseUrl + "/index.html";
             },
             goRank: function () {
-                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/rank.html";
+                window.location.href = this.baseUrl + "/rank.html";
             },
             goStory: function () {
-                window.location.href = "http://localhost:63342/Web-Crawler/wangyiyun/src/main/views/story.html";
+                window.location.href = this.baseUrl + "/story.html";
             }
         }
     });
@@ -135,9 +136,9 @@
                 console.log(current);
                 axios.get("http://localhost:8090/music/playlist?type=民谣&current="+current+"&pageSize=9")
                     .then(function (response) {
-                        console.log(response.data);
-                        playlist.playlists = response.data.records;
-                        playlist.total = response.data.total;
+                        console.log(response.data.data);
+                        playlist.playlists = response.data.data.records;
+                        playlist.total = response.data.data.total;
                     })
             },
         }

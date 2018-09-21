@@ -3,6 +3,8 @@ package com.liuyj.music.web;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.liuyj.core.result.Result;
+import com.liuyj.core.result.ResultGenerator;
 import com.liuyj.music.entity.Comment;
 import com.liuyj.music.entity.Keyword;
 import com.liuyj.music.entity.Song;
@@ -39,7 +41,7 @@ public class StoryController {
     private IKeywordService keywordService;
 
     @GetMapping("/rank")
-    public List<SongStory> getRankSongStorys(){
+    public Result getRankSongStorys(){
         List<Song> songList = songService.getRankSong();
         List<Song> distinctSongList = Lists.newArrayList();
         Set<String> songIdsSet = Sets.newHashSet();
@@ -62,7 +64,7 @@ public class StoryController {
             songStories.add(songStory);
         });
 
-        return songStories;
+        return ResultGenerator.successResult(songStories);
     }
 
     /**

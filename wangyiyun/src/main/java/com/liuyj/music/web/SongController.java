@@ -4,6 +4,8 @@ package com.liuyj.music.web;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.liuyj.core.result.Result;
+import com.liuyj.core.result.ResultGenerator;
 import com.liuyj.jsoup.Music163;
 import com.liuyj.music.entity.Song;
 import com.liuyj.music.service.ISongService;
@@ -44,13 +46,14 @@ public class SongController {
     }
 
     @GetMapping("/playlist/{listId}")
-    public List<Song> getPlaylistSong(@PathVariable String listId){
+    public Result getPlaylistSong(@PathVariable String listId){
         List<Song> songList = songService.selectList(new EntityWrapper<Song>().eq("listId",listId));
-        return songList;
+
+        return ResultGenerator.successResult(songList);
     }
 
     @GetMapping("/rank")
-    public List<Song> getRankSongs(){
+    public Result getRankSongs(){
         List<Song> songs = songService.getRankSong();
         //因为之前获取 song 插入数据库未去重， 这里处理一下， 获取歌曲时的去重 已经加上
         List<Song> distinctSongList = Lists.newArrayList();
@@ -62,6 +65,7 @@ public class SongController {
                 distinctSongList.add(song);
             }
         });
-        return distinctSongList;
+
+        return ResultGenerator.successResult(distinctSongList);
     }
 }

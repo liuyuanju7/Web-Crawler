@@ -98,7 +98,7 @@
                 window.location.href = this.baseUrl + "/index.html";
             },
             goRank: function () {
-                window.location.href = this.baseUrl + "rank.html";
+                window.location.href = this.baseUrl + "/rank.html";
             },
             goStory: function () {
                 window.location.href = this.baseUrl + "/story.html";
@@ -114,11 +114,11 @@
         },
         created: function () {
 //            axios.get("http://localhost:8090/music/story/rank").then(function (response) {
-//                console.log(response.data);
+//                console.log(response.data.data);
 //                rank.storyList = response.data;
 //            })
             axios.get("http://localhost:8090/music/story/rank").then((response) => {
-                this.storyList = response.data;
+                this.storyList = response.data.data;
             });
         }
     })
